@@ -33,7 +33,7 @@ namespace TickTackChessJmaa
                 picturebox.SizeMode = PictureBoxSizeMode.StretchImage;
                 picturebox.AllowDrop = true;
             }
-
+            //k
             boardlist.Clear();
             boardlist.Add(new Board(1, 1, "pbxBoardOne"));
             boardlist.Add(new Board(2, 1, "pbxBoardTwo"));
