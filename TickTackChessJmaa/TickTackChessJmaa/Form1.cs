@@ -133,7 +133,7 @@ namespace TickTackChessJmaa
 
 		private void pcbBoard_DragOver(object sender, DragEventArgs e)
 		{
-			
+			//.
 		}
 
 		private void pcbBoard_DragDrop(object sender, DragEventArgs e)
