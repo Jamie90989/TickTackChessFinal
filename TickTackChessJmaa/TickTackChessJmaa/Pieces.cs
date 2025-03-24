@@ -37,13 +37,22 @@ namespace TickTackChessJmaa
 
 			switch (name)
 			{
-				case "Rook":
+				case "pcbrookBlack":
 					MoveRook();
 					break;
-				case "Knight":
+				case "pcbrookWhitebg":
+					MoveRook();
+					break;
+				case "pcbknightBlackbg":
 					MoveKnight();
 					break;
-				case "Queen":
+				case "pcbknightWhite":
+					MoveKnight();
+					break;
+				case "pcbqueenBlackbg":
+					MoveQueen();
+					break;
+				case "pcbqueenWhite":
 					MoveQueen();
 					break;
 				default: break;

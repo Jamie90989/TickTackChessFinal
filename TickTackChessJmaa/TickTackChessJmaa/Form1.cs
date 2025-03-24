@@ -56,6 +56,7 @@ namespace TickTackChessJmaa
 
 		}
 
+
 		private void rdoBlack_CheckedChanged(object sender, EventArgs e)
 		{
 			if (rdoBlack.Checked == true)
@@ -112,7 +113,20 @@ namespace TickTackChessJmaa
 			{
 				currentPiece = piecelist.FirstOrDefault(x => x.GetName() == pcbFrom.Name);
 				pcbFrom.DoDragDrop(pcbFrom.Image, DragDropEffects.Copy);
-				
+			}
+		}
+
+		private void pcbBoard_MouseDown(object sender, MouseEventArgs e)
+		{
+			
+			pcbFrom = (PictureBox)sender;
+
+			if (pcbFrom.Image != null && pcbFrom.BackColor != Color.Red)
+			{
+				currentPiece = piecelist.FirstOrDefault(x => x.GetName() == pcbFrom.Name);
+				pcbFrom.DoDragDrop(pcbFrom.Image, DragDropEffects.Copy);
+				GetBoardoptions();
+				updateBoardPieceLocations();
 			}
 		}
 
@@ -129,8 +143,31 @@ namespace TickTackChessJmaa
 
 				}
 			}
-			//pieceOptions = "1213";
 		}
+
+		public void updateBoardPieceLocations()
+		{
+			for(int i = 0; i < pieceOptions.Length; i += 2)
+			{
+				foreach(PictureBox pictureBox in gbxBoard.Controls.OfType<PictureBox>())
+				{
+					if (pictureBox.Tag.ToString() == pieceOptions[i].ToString() + pieceOptions[i + 1].ToString() && pictureBox.Image == null)
+					{
+						pictureBox.BackColor = Color.Green;
+					}
+				}
+			}
+		}
+
+		public void clearBoardColors()
+		{
+			foreach (PictureBox pictureBox in gbxBoard.Controls.OfType<PictureBox>())
+			{
+				pictureBox.BackColor = Color.Transparent;
+			}
+		}
+
+
 
 		private void pcbBoard_DragOver(object sender, DragEventArgs e)
 		{
@@ -149,9 +186,9 @@ namespace TickTackChessJmaa
 				horizontal = Convert.ToInt32(pcbTo.Tag.ToString().Substring(0, 1));
 				vertical = Convert.ToInt32(pcbTo.Tag.ToString().Substring(0, 1));
 				currentPiece.SetLocation(horizontal, vertical);
-				//currentPiece.SetLocation(curHor, curVer);
 				pcbFrom.BackColor = Color.Red;
 				pcbTo.BackColor = Color.Transparent;
+				checkRdo();
 			}
 			else
 			{
@@ -170,5 +207,16 @@ namespace TickTackChessJmaa
 				e.Effect = DragDropEffects.None;
 			}
 		}
+
+		public void checkRdo()
+		{
+			if(gbxPieces.Controls.OfType<PictureBox>().All(pb => pb.BackColor == Color.Red))
+			{
+				rdoBlack.Enabled = false;
+				rdoWhite.Enabled = false;
+			}
+		}
+
+		
 	}
 }

@@ -165,6 +165,7 @@
 			this.pcbBoardNine.DragDrop += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragDrop);
 			this.pcbBoardNine.DragEnter += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragEnter);
 			this.pcbBoardNine.DragOver += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragOver);
+			this.pcbBoardNine.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pcbBoard_MouseDown);
 			// 
 			// pcbBoardSix
 			// 
@@ -178,6 +179,7 @@
 			this.pcbBoardSix.DragDrop += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragDrop);
 			this.pcbBoardSix.DragEnter += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragEnter);
 			this.pcbBoardSix.DragOver += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragOver);
+			this.pcbBoardSix.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pcbBoard_MouseDown);
 			// 
 			// pcbBoardEight
 			// 
@@ -191,6 +193,7 @@
 			this.pcbBoardEight.DragDrop += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragDrop);
 			this.pcbBoardEight.DragEnter += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragEnter);
 			this.pcbBoardEight.DragOver += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragOver);
+			this.pcbBoardEight.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pcbBoard_MouseDown);
 			// 
 			// pcbBoardFive
 			// 
@@ -204,6 +207,7 @@
 			this.pcbBoardFive.DragDrop += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragDrop);
 			this.pcbBoardFive.DragEnter += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragEnter);
 			this.pcbBoardFive.DragOver += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragOver);
+			this.pcbBoardFive.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pcbBoard_MouseDown);
 			// 
 			// pcbBoardTwo
 			// 
@@ -217,6 +221,7 @@
 			this.pcbBoardTwo.DragDrop += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragDrop);
 			this.pcbBoardTwo.DragEnter += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragEnter);
 			this.pcbBoardTwo.DragOver += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragOver);
+			this.pcbBoardTwo.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pcbBoard_MouseDown);
 			// 
 			// pcbBoardThree
 			// 
@@ -230,6 +235,7 @@
 			this.pcbBoardThree.DragDrop += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragDrop);
 			this.pcbBoardThree.DragEnter += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragEnter);
 			this.pcbBoardThree.DragOver += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragOver);
+			this.pcbBoardThree.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pcbBoard_MouseDown);
 			// 
 			// pcbBoardSeven
 			// 
@@ -243,6 +249,7 @@
 			this.pcbBoardSeven.DragDrop += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragDrop);
 			this.pcbBoardSeven.DragEnter += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragEnter);
 			this.pcbBoardSeven.DragOver += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragOver);
+			this.pcbBoardSeven.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pcbBoard_MouseDown);
 			// 
 			// pcbBoardFour
 			// 
@@ -256,6 +263,7 @@
 			this.pcbBoardFour.DragDrop += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragDrop);
 			this.pcbBoardFour.DragEnter += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragEnter);
 			this.pcbBoardFour.DragOver += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragOver);
+			this.pcbBoardFour.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pcbBoard_MouseDown);
 			// 
 			// pcbBoardOne
 			// 
@@ -269,6 +277,7 @@
 			this.pcbBoardOne.DragDrop += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragDrop);
 			this.pcbBoardOne.DragEnter += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragEnter);
 			this.pcbBoardOne.DragOver += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragOver);
+			this.pcbBoardOne.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pcbBoard_MouseDown);
 			// 
 			// pcbknightBlackbg
 			// 
