@@ -108,10 +108,11 @@ namespace TickTackChessJmaa
 		{
 			pcbFrom = (PictureBox)sender;
 
-			if (pcbFrom.Image != null)
+			if (pcbFrom.Image != null && pcbFrom.BackColor != Color.Red)
 			{
-				pcbFrom.DoDragDrop(pcbFrom.Image, DragDropEffects.Copy);
 				currentPiece = piecelist.FirstOrDefault(x => x.GetName() == pcbFrom.Name);
+				pcbFrom.DoDragDrop(pcbFrom.Image, DragDropEffects.Copy);
+				
 			}
 		}
 
@@ -140,6 +141,27 @@ namespace TickTackChessJmaa
 		{
 			pcbTo = (PictureBox)sender;
 			if (pcbTo.BackColor == Color.Green)
+			{
+				
+				e.Effect = DragDropEffects.Copy;
+				Image getPicture = (Bitmap)e.Data.GetData(DataFormats.Bitmap);
+				pcbTo.Image = getPicture;
+				horizontal = Convert.ToInt32(pcbTo.Tag.ToString().Substring(0, 1));
+				vertical = Convert.ToInt32(pcbTo.Tag.ToString().Substring(0, 1));
+				currentPiece.SetLocation(horizontal, vertical);
+				//currentPiece.SetLocation(curHor, curVer);
+				pcbFrom.BackColor = Color.Red;
+				pcbTo.BackColor = Color.Transparent;
+			}
+			else
+			{
+				e.Effect = DragDropEffects.None;
+			}
+		}
+
+		private void pcbBoard_DragEnter(object sender, DragEventArgs e)
+		{
+			if(e.Data.GetDataPresent(DataFormats.Bitmap) && ((PictureBox)sender).BackColor == Color.Green)
 			{
 				e.Effect = DragDropEffects.Copy;
 			}
