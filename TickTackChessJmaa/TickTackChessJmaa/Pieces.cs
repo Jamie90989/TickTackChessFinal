@@ -37,6 +37,7 @@ namespace TickTackChessJmaa
 
 			switch (name)
 			{
+				
 				case "pcbrookBlack":
 					MoveRook();
 					break;
@@ -81,6 +82,7 @@ namespace TickTackChessJmaa
 					moveOptions = $"{newHor}{newVer}";
 				}
 			}
+			Console.WriteLine(moveOptions + "test");
 		}
 		public void MoveKnight()
 		{
@@ -107,6 +109,16 @@ namespace TickTackChessJmaa
 			{
 				moveOptions = $"{newHor}{newVer}"; // Valid diagonal move
 			}
+		}
+
+		public int GetCurrentHorizontal()
+		{
+			return curHor;
+		}
+
+		public int GetCurrentVertical()
+		{
+			return curVer;
 		}
 
 	}

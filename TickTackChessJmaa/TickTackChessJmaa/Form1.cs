@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -36,15 +37,15 @@ namespace TickTackChessJmaa
             }
 
             boardlist.Clear();
-            boardlist.Add(new Board(1, 1, "pbxBoardOne"));
-            boardlist.Add(new Board(2, 1, "pbxBoardTwo"));
-            boardlist.Add(new Board(3, 1, "pbxBoardThree"));
-            boardlist.Add(new Board(1, 2, "pbxBoardFour"));
-            boardlist.Add(new Board(2, 2, "pbxBoardFive"));
-            boardlist.Add(new Board(3, 2, "pbxBoardSix"));
-            boardlist.Add(new Board(1, 3, "pbxBoardSeven"));
-            boardlist.Add(new Board(2, 3, "pbxBoardEight"));
-            boardlist.Add(new Board(3, 3, "pbxBoardNine"));
+            boardlist.Add(new Board(1, 1, "pcbBoardOne"));
+            boardlist.Add(new Board(2, 1, "pcbBoardTwo"));
+            boardlist.Add(new Board(3, 1, "pcbBoardThree"));
+            boardlist.Add(new Board(1, 2, "pcbBoardFour"));
+            boardlist.Add(new Board(2, 2, "pcbBoardFive"));
+            boardlist.Add(new Board(3, 2, "pcbBoardSix"));
+            boardlist.Add(new Board(1, 3, "pcbBoardSeven"));
+            boardlist.Add(new Board(2, 3, "pcbBoardEight"));
+            boardlist.Add(new Board(3, 3, "pcbBoardNine"));
 
 			piecelist.Clear();
 			piecelist.Add(new Pieces("pcbknightBlackbg"));
@@ -118,15 +119,36 @@ namespace TickTackChessJmaa
 
 		private void pcbBoard_MouseDown(object sender, MouseEventArgs e)
 		{
-			
+			clearBoardColors();
 			pcbFrom = (PictureBox)sender;
 
 			if (pcbFrom.Image != null && pcbFrom.BackColor != Color.Red)
 			{
-				currentPiece = piecelist.FirstOrDefault(x => x.GetName() == pcbFrom.Name);
-				pcbFrom.DoDragDrop(pcbFrom.Image, DragDropEffects.Copy);
+				LocationOfPicturebox(pcbFrom.Name);
+				currentPiece = piecelist.FirstOrDefault(x => x.GetCurrentHorizontal() == horizontal && x.GetCurrentVertical() == vertical);
+				Console.WriteLine(currentPiece.GetName());
 				GetBoardoptions();
 				updateBoardPieceLocations();
+				pcbFrom.DoDragDrop(pcbFrom.Image, DragDropEffects.Copy);
+			}
+		}
+
+		private void LocationOfPicturebox(string pictureboxName)
+		{
+			switch (pictureboxName)
+			{
+				case "pcbBoardOne": horizontal = 1; vertical = 1; break;
+				case "pcbBoardTwo": horizontal = 2; vertical = 1; break;
+				case "pcbBoardThree": horizontal = 3; vertical = 1; break;
+				case "pcbBoardFour": horizontal = 1; vertical = 2; break;
+				case "pcbBoardFive": horizontal = 2; vertical = 2; break;
+				case "pcbBoardSix": horizontal = 3; vertical = 2; break;
+				case "pcbBoardSeven": horizontal = 1; vertical = 3; break;
+				case "pcbBoardEight": horizontal = 2; vertical = 3; break;
+				case "pcbBoardNine": horizontal = 3; vertical = 3; break;
+				default:
+
+					break;
 			}
 		}
 
@@ -144,6 +166,7 @@ namespace TickTackChessJmaa
 				}
 			}
 		}
+
 
 		public void updateBoardPieceLocations()
 		{
@@ -184,11 +207,17 @@ namespace TickTackChessJmaa
 				Image getPicture = (Bitmap)e.Data.GetData(DataFormats.Bitmap);
 				pcbTo.Image = getPicture;
 				horizontal = Convert.ToInt32(pcbTo.Tag.ToString().Substring(0, 1));
-				vertical = Convert.ToInt32(pcbTo.Tag.ToString().Substring(0, 1));
+				vertical = Convert.ToInt32(pcbTo.Tag.ToString().Substring(1, 1));
 				currentPiece.SetLocation(horizontal, vertical);
-				pcbFrom.BackColor = Color.Red;
 				pcbTo.BackColor = Color.Transparent;
-				checkRdo();
+				pcbFrom.Image = null;
+
+
+				if (pcbFrom.Parent is GroupBox groupBox && groupBox.Name == "gbxPieces")
+				{
+					pcbFrom.BackColor = Color.Red;
+					checkRdo();
+				}
 			}
 			else
 			{
