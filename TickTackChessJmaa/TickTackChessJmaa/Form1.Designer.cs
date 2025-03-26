@@ -75,7 +75,7 @@
 			// 
 			// btnResetGame
 			// 
-			this.btnResetGame.Location = new System.Drawing.Point(15, 16);
+			this.btnResetGame.Location = new System.Drawing.Point(69, 84);
 			this.btnResetGame.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.btnResetGame.Name = "btnResetGame";
 			this.btnResetGame.Size = new System.Drawing.Size(124, 50);
@@ -87,7 +87,7 @@
 			// 
 			this.lblText.AutoSize = true;
 			this.lblText.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblText.Location = new System.Drawing.Point(145, 16);
+			this.lblText.Location = new System.Drawing.Point(91, 20);
 			this.lblText.Name = "lblText";
 			this.lblText.Size = new System.Drawing.Size(378, 38);
 			this.lblText.TabIndex = 1;
@@ -108,7 +108,7 @@
 			this.gbxBoard.Controls.Add(this.pcbBoardSeven);
 			this.gbxBoard.Controls.Add(this.pcbBoardFour);
 			this.gbxBoard.Controls.Add(this.pcbBoardOne);
-			this.gbxBoard.Location = new System.Drawing.Point(15, 80);
+			this.gbxBoard.Location = new System.Drawing.Point(12, 142);
 			this.gbxBoard.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.gbxBoard.Name = "gbxBoard";
 			this.gbxBoard.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -282,7 +282,7 @@
 			// pcbknightBlackbg
 			// 
 			this.pcbknightBlackbg.Image = ((System.Drawing.Image)(resources.GetObject("pcbknightBlackbg.Image")));
-			this.pcbknightBlackbg.Location = new System.Drawing.Point(7, 28);
+			this.pcbknightBlackbg.Location = new System.Drawing.Point(7, 26);
 			this.pcbknightBlackbg.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.pcbknightBlackbg.Name = "pcbknightBlackbg";
 			this.pcbknightBlackbg.Size = new System.Drawing.Size(141, 156);
@@ -300,7 +300,7 @@
 			this.gbxPieces.Controls.Add(this.pcbknightWhite);
 			this.gbxPieces.Controls.Add(this.pcbqueenBlackbg);
 			this.gbxPieces.Controls.Add(this.pcbqueenWhite);
-			this.gbxPieces.Location = new System.Drawing.Point(471, 80);
+			this.gbxPieces.Location = new System.Drawing.Point(468, 142);
 			this.gbxPieces.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.gbxPieces.Name = "gbxPieces";
 			this.gbxPieces.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -377,7 +377,7 @@
 			// rdoWhite
 			// 
 			this.rdoWhite.AutoSize = true;
-			this.rdoWhite.Location = new System.Drawing.Point(520, 15);
+			this.rdoWhite.Location = new System.Drawing.Point(511, 84);
 			this.rdoWhite.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.rdoWhite.Name = "rdoWhite";
 			this.rdoWhite.Size = new System.Drawing.Size(75, 24);
@@ -390,7 +390,7 @@
 			// 
 			this.rdoBlack.AutoSize = true;
 			this.rdoBlack.Checked = true;
-			this.rdoBlack.Location = new System.Drawing.Point(520, 48);
+			this.rdoBlack.Location = new System.Drawing.Point(511, 117);
 			this.rdoBlack.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.rdoBlack.Name = "rdoBlack";
 			this.rdoBlack.Size = new System.Drawing.Size(73, 24);
@@ -404,7 +404,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(657, 619);
+			this.ClientSize = new System.Drawing.Size(657, 718);
 			this.Controls.Add(this.rdoBlack);
 			this.Controls.Add(this.rdoWhite);
 			this.Controls.Add(this.gbxPieces);

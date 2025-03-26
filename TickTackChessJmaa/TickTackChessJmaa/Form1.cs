@@ -14,11 +14,14 @@ namespace TickTackChessJmaa
     public partial class Form1: Form
     {
         Pieces currentPiece = null;
+		string teamColor = "";
         PictureBox pcbFrom = null;
         PictureBox pcbTo = null;
         int horizontal = 0;
         int vertical = 0;
         string pieceOptions = "";
+		string playerTurn = "";
+		
         List<Board> boardlist = new List<Board>();
 		List<Pieces> piecelist = new List<Pieces>();
 
@@ -48,12 +51,12 @@ namespace TickTackChessJmaa
             boardlist.Add(new Board(3, 3, "pcbBoardNine"));
 
 			piecelist.Clear();
-			piecelist.Add(new Pieces("pcbknightBlackbg"));
-			piecelist.Add(new Pieces("pcbqueenBlackbg"));
-			piecelist.Add(new Pieces("pcbrookBlack"));
-			piecelist.Add(new Pieces("pcbrookWhitebg"));
-			piecelist.Add(new Pieces("pcbqueenWhite"));
-			piecelist.Add(new Pieces("pcbknightWhite"));
+			piecelist.Add(new Pieces("Black", "pcbknightBlackbg"));
+			piecelist.Add(new Pieces("Black", "pcbqueenBlackbg"));
+			piecelist.Add(new Pieces("Black", "pcbrookBlack"));
+			piecelist.Add(new Pieces("White", "pcbrookWhitebg"));
+			piecelist.Add(new Pieces("White", "pcbqueenWhite"));
+			piecelist.Add(new Pieces("White", "pcbknightWhite"));
 		}
 
 		private void rdoBlack_CheckedChanged(object sender, EventArgs e)
@@ -179,6 +182,7 @@ namespace TickTackChessJmaa
 					if (pictureBox.Tag.ToString() == pieceOptions[i].ToString() + pieceOptions[i + 1].ToString() && pictureBox.Image == null)
 					{
 						pictureBox.BackColor = Color.Green;
+						
 					}
 				}
 			}
@@ -189,6 +193,7 @@ namespace TickTackChessJmaa
 			foreach (PictureBox pictureBox in gbxBoard.Controls.OfType<PictureBox>())
 			{
 				pictureBox.BackColor = Color.Transparent;
+				pictureBox.Enabled = true;
 			}
 		}
 
@@ -213,6 +218,7 @@ namespace TickTackChessJmaa
 				currentPiece.SetLocation(horizontal, vertical);
 				pcbTo.BackColor = Color.Transparent;
 
+
 				if (pcbFrom.Parent is GroupBox groupBox && groupBox.Name == "gbxPieces")
 				{
 					pcbFrom.BackColor = Color.Red;
@@ -221,8 +227,10 @@ namespace TickTackChessJmaa
 
 				else
 				{
+					
 					pcbFrom.Image = null;
 					clearBoardColors();
+					ChangeTurns();
 				}
 			}
 			else
@@ -252,6 +260,56 @@ namespace TickTackChessJmaa
 			}
 		}
 
+		public void ChangeTurns()
+		{
+			teamColor = currentPiece.GetTeamColor();
+
+			if (teamColor == "White")
+			{
+				//playerTurn = "playerTwo";
+				lblText.Text = "Its players two turns to pick a champion";
+				teamColor = "Black";
+
+				foreach (Pieces item in piecelist)
+				{
+					if (item.GetTeamColor() == "White")
+					{
+						Board currentboard = boardlist.FirstOrDefault(x => x.GetHorizontal() == item.GetCurrentHorizontal() && x.GetVertical() == item.GetCurrentVertical());
+						foreach (PictureBox pictureBox in gbxBoard.Controls.OfType<PictureBox>())
+						{
+							if (currentboard.GetImagename() == pictureBox.Name)
+							{
+								pictureBox.BackColor = Color.Red;
+								pictureBox.Enabled = false;
+							}
+						}
+					}
+				}
+			}
+			else
+			{
+				lblText.Text = "Its players One turns to pick a champion";
+				teamColor = "White";
+
+				foreach (Pieces item in piecelist)
+				{
+					if (item.GetTeamColor() == "Black")
+					{
+						Board currentboard = boardlist.FirstOrDefault(x => x.GetHorizontal() == item.GetCurrentHorizontal() && x.GetVertical() == item.GetCurrentVertical());
+						foreach (PictureBox pictureBox in gbxBoard.Controls.OfType<PictureBox>())
+						{
+							if (currentboard.GetImagename() == pictureBox.Name)
+							{
+								pictureBox.BackColor = Color.Red;
+								pictureBox.Enabled = false;
+							}
+						}
+					}
+				}
+			}
+
+
+		}
 		
 	}
 }

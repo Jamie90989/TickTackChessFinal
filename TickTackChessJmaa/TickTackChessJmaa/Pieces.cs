@@ -12,10 +12,17 @@ namespace TickTackChessJmaa
 		private string name = "";
 		private string moveOptions = "";
 		private int curHor, curVer, newHor, newVer;
+		private string teamColor = "";
 
-		public Pieces(string c_name)
+		public Pieces(string c_teamColor, string c_name)
 		{
+			teamColor = c_teamColor;
 			name = c_name;
+		}
+
+		public string GetTeamColor()
+		{
+			return teamColor;
 		}
 
 		public string GetName()
