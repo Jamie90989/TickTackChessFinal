@@ -54,9 +54,7 @@ namespace TickTackChessJmaa
 			piecelist.Add(new Pieces("pcbrookWhitebg"));
 			piecelist.Add(new Pieces("pcbqueenWhite"));
 			piecelist.Add(new Pieces("pcbknightWhite"));
-
 		}
-
 
 		private void rdoBlack_CheckedChanged(object sender, EventArgs e)
 		{
@@ -119,18 +117,22 @@ namespace TickTackChessJmaa
 
 		private void pcbBoard_MouseDown(object sender, MouseEventArgs e)
 		{
-			clearBoardColors();
-			pcbFrom = (PictureBox)sender;
-
-			if (pcbFrom.Image != null && pcbFrom.BackColor != Color.Red)
+			if(rdoBlack.Enabled == false && rdoWhite.Enabled == false)
 			{
-				LocationOfPicturebox(pcbFrom.Name);
-				currentPiece = piecelist.FirstOrDefault(x => x.GetCurrentHorizontal() == horizontal && x.GetCurrentVertical() == vertical);
-				Console.WriteLine(currentPiece.GetName());
-				GetBoardoptions();
-				updateBoardPieceLocations();
-				pcbFrom.DoDragDrop(pcbFrom.Image, DragDropEffects.Copy);
+				clearBoardColors();
+				pcbFrom = (PictureBox)sender;
+
+				if (pcbFrom.Image != null && pcbFrom.BackColor != Color.Red)
+				{
+					LocationOfPicturebox(pcbFrom.Name);
+					currentPiece = piecelist.FirstOrDefault(x => x.GetCurrentHorizontal() == horizontal && x.GetCurrentVertical() == vertical);
+					Console.WriteLine(currentPiece.GetName());
+					GetBoardoptions();
+					updateBoardPieceLocations();
+					pcbFrom.DoDragDrop(pcbFrom.Image, DragDropEffects.Copy);
+				}
 			}
+
 		}
 
 		private void LocationOfPicturebox(string pictureboxName)
@@ -210,13 +212,17 @@ namespace TickTackChessJmaa
 				vertical = Convert.ToInt32(pcbTo.Tag.ToString().Substring(1, 1));
 				currentPiece.SetLocation(horizontal, vertical);
 				pcbTo.BackColor = Color.Transparent;
-				pcbFrom.Image = null;
-
 
 				if (pcbFrom.Parent is GroupBox groupBox && groupBox.Name == "gbxPieces")
 				{
 					pcbFrom.BackColor = Color.Red;
 					checkRdo();
+				}
+
+				else
+				{
+					pcbFrom.Image = null;
+					clearBoardColors();
 				}
 			}
 			else
