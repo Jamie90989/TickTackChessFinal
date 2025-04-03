@@ -11,15 +11,26 @@ namespace TickTackChessJmaa
         private int horizontal = 0;
         private int vertical = 0;
         private string imagename = "";
+		private Pieces CurrentPiece = null;
 
-        public Board(int c_horizontal, int c_vertical, string c_imagename)
+		public Board(int c_horizontal, int c_vertical, string c_imagename)
         {
             horizontal = c_horizontal;
             vertical = c_vertical;
             imagename = c_imagename;
         }
 
-        public int GetHorizontal()
+		public void SetPiece(Pieces newPiece)
+		{
+			CurrentPiece = newPiece;
+		}
+
+		public Pieces GetPiece()
+		{
+			return CurrentPiece;
+		}
+
+		public int GetHorizontal()
         {
             return horizontal;
         }

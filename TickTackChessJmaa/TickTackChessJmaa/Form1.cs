@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,9 +22,11 @@ namespace TickTackChessJmaa
         int vertical = 0;
         string pieceOptions = "";
 		string playerTurn = "";
-		
-        List<Board> boardlist = new List<Board>();
+		Board currentBoard = null;
+
+		List<Board> boardlist = new List<Board>();
 		List<Pieces> piecelist = new List<Pieces>();
+		List<string> winlist = null;
 
 		public Form1()
         {
@@ -57,6 +60,16 @@ namespace TickTackChessJmaa
 			piecelist.Add(new Pieces("White", "pcbrookWhitebg"));
 			piecelist.Add(new Pieces("White", "pcbqueenWhite"));
 			piecelist.Add(new Pieces("White", "pcbknightWhite"));
+
+			winlist = new List<string>();
+			winlist.Add("012");
+			winlist.Add("345");
+			winlist.Add("678");
+			winlist.Add("036");
+			winlist.Add("147");
+			winlist.Add("258");
+			winlist.Add("246");
+			winlist.Add("048");
 		}
 
 		private void rdoBlack_CheckedChanged(object sender, EventArgs e)
@@ -218,6 +231,9 @@ namespace TickTackChessJmaa
 				currentPiece.SetLocation(horizontal, vertical);
 				pcbTo.BackColor = Color.Transparent;
 
+				currentBoard = boardlist.FirstOrDefault(x => x.GetHorizontal() == horizontal && x.GetVertical() == vertical);
+				currentBoard.SetPiece(currentPiece);
+
 
 				if (pcbFrom.Parent is GroupBox groupBox && groupBox.Name == "gbxPieces")
 				{
@@ -227,9 +243,9 @@ namespace TickTackChessJmaa
 
 				else
 				{
-					
 					pcbFrom.Image = null;
 					clearBoardColors();
+					CheckWinner();
 					ChangeTurns();
 				}
 			}
@@ -298,18 +314,128 @@ namespace TickTackChessJmaa
 						Board currentboard = boardlist.FirstOrDefault(x => x.GetHorizontal() == item.GetCurrentHorizontal() && x.GetVertical() == item.GetCurrentVertical());
 						foreach (PictureBox pictureBox in gbxBoard.Controls.OfType<PictureBox>())
 						{
-							if (currentboard.GetImagename() == pictureBox.Name)
 							{
-								pictureBox.BackColor = Color.Red;
-								pictureBox.Enabled = false;
+								if (currentboard.GetImagename() == pictureBox.Name)
+								{
+									pictureBox.BackColor = Color.Red;
+									pictureBox.Enabled = false;
+								}
 							}
 						}
 					}
 				}
 			}
-
-
 		}
+
 		
+	
+		public void CheckWinner()
+		{
+			bool allBlackTop = piecelist.Where(p => p.GetTeamColor() == "Black").All(p => p.GetCurrentVertical() == 1);
+
+			bool allWhiteBottom = piecelist.Where(p => p.GetTeamColor() == "White").All(p => p.GetCurrentVertical() == 3);
+
+			foreach (Board Board in boardlist)
+			{
+				int currentHorBoard = Board.GetHorizontal();
+				int currentVerBoard = Board.GetVertical();
+	
+				if (Board.GetPiece() != null)
+				{
+
+					Board boardLeft = boardlist.FirstOrDefault(x => x.GetHorizontal() == currentHorBoard - 1 && x.GetVertical() == currentVerBoard);
+					Board boardRight = boardlist.FirstOrDefault(x => x.GetHorizontal() == currentHorBoard + 1 && x.GetVertical() == currentVerBoard);
+					Board boardUp = boardlist.FirstOrDefault(x => x.GetHorizontal() == currentHorBoard && x.GetVertical() == currentVerBoard - 1);
+					Board boardDown = boardlist.FirstOrDefault(x => x.GetHorizontal() == currentHorBoard && x.GetVertical() == currentVerBoard + 1);
+					Board boardUpLeft = boardlist.FirstOrDefault(x => x.GetHorizontal() == currentHorBoard - 1 && x.GetVertical() == currentVerBoard - 1);
+					Board boardDownRight = boardlist.FirstOrDefault(x => x.GetHorizontal() == currentHorBoard + 1 && x.GetVertical() == currentVerBoard + 1);
+					Board boardUpRight = boardlist.FirstOrDefault(x => x.GetHorizontal() == currentHorBoard + 1 && x.GetVertical() == currentVerBoard - 1);
+					Board boardDownLeft = boardlist.FirstOrDefault(x => x.GetHorizontal() == currentHorBoard - 1 && x.GetVertical() == currentVerBoard + 1);
+
+					//check all options to see if there is a winner
+					CheckNeighbour(Board, boardLeft, boardRight);
+					CheckNeighbour(Board, boardUp, boardDown);
+					CheckNeighbour(Board, boardUpLeft, boardDownRight);
+					CheckNeighbour(Board, boardUpRight, boardDownLeft);
+
+
+				}
+			}
+		}
+
+		private void CheckNeighbour(Board selectedBoard, Board boardOne, Board boardTwo)
+		{
+		
+			if (boardOne != null && boardTwo != null)
+			{
+				if (boardOne.GetPiece() != null && boardTwo.GetPiece() != null)
+				{
+					//check if all three colors are of the same color
+					if (selectedBoard.GetPiece().GetTeamColor() == boardOne.GetPiece().GetTeamColor() && boardOne.GetPiece().GetTeamColor() == boardTwo.GetPiece().GetTeamColor())
+					{
+						string winningColor = selectedBoard.GetPiece().GetTeamColor();
+
+						// Get the row number of the winning pieces
+						int rowSelected = selectedBoard.GetVertical();
+						int rowOne = boardOne.GetVertical();
+						int rowTwo = boardTwo.GetVertical();
+
+						// Check if the win is in an illegal row
+						if ((winningColor == "Black" && (rowSelected == 1 && rowOne == 1 && rowTwo == 1)) ||
+							(winningColor == "White" && (rowSelected == 3 && rowOne == 3 && rowTwo == 3)))
+						{
+							// Prevent the win message if Black wins on top row or White on bottom row
+							return;
+						}
+
+						if (selectedBoard.GetPiece().GetTeamColor() == "White")
+						{
+							lblText.Text = "White Won!";
+							MessageBox.Show("White won!");
+						}
+						else
+						{
+							lblText.Text = "Black Won!";
+							MessageBox.Show("Black won!");
+						}
+
+						foreach (PictureBox pictureBox in gbxBoard.Controls.OfType<PictureBox>())
+						{
+							pictureBox.Enabled = false;
+						}
+					}
+				}
+			}
+			
+		}
+
+		private void btnResetGame_Click(object sender, EventArgs e)
+		{
+			// Clear all picture boxes on the board
+			foreach (PictureBox pictureBox in gbxBoard.Controls.OfType<PictureBox>())
+			{
+				pictureBox.Image = null;   // Remove piece images
+				pictureBox.BackColor = Color.LightGray;  // Reset color
+				pictureBox.Enabled = true; // Enable for interaction
+			}
+
+			foreach (PictureBox pictureBox in gbxPieces.Controls.OfType<PictureBox>())
+			{
+				pictureBox.BackColor = Color.LightGray;  // Reset color
+				pictureBox.Enabled = true; // Enable for interaction
+			}
+
+			// Reset lists
+			piecelist.Clear();
+			boardlist.Clear();
+
+			// Reinitialize the board and pieces
+			Form1_Load(null, null);
+
+			// Reset UI elements
+			lblText.Text = "Start Game, Setup Pieces";  // Reset turn message
+			rdoBlack.Enabled = true;
+			rdoWhite.Enabled = true;
+		}
 	}
 }

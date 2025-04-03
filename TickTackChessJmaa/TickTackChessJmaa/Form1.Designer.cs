@@ -82,12 +82,13 @@
 			this.btnResetGame.TabIndex = 0;
 			this.btnResetGame.Text = "Reset game";
 			this.btnResetGame.UseVisualStyleBackColor = true;
+			this.btnResetGame.Click += new System.EventHandler(this.btnResetGame_Click);
 			// 
 			// lblText
 			// 
 			this.lblText.AutoSize = true;
 			this.lblText.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblText.Location = new System.Drawing.Point(91, 20);
+			this.lblText.Location = new System.Drawing.Point(13, 24);
 			this.lblText.Name = "lblText";
 			this.lblText.Size = new System.Drawing.Size(378, 38);
 			this.lblText.TabIndex = 1;
