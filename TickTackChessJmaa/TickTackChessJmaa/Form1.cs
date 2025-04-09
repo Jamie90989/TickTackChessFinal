@@ -20,7 +20,9 @@ namespace TickTackChessJmaa
         PictureBox pcbTo = null;
         int horizontal = 0;
         int vertical = 0;
-        string pieceOptions = "";
+		int prevHor = 0;
+		int prevVer = 0;
+		string pieceOptions = "";
 		string playerTurn = "";
 		Board currentBoard = null;
 
@@ -42,7 +44,9 @@ namespace TickTackChessJmaa
                 picturebox.AllowDrop = true;
             }
 
-            boardlist.Clear();
+			rdoWhite.Checked = true;
+
+			boardlist.Clear();
             boardlist.Add(new Board(1, 1, "pcbBoardOne"));
             boardlist.Add(new Board(2, 1, "pcbBoardTwo"));
             boardlist.Add(new Board(3, 1, "pcbBoardThree"));
@@ -57,9 +61,13 @@ namespace TickTackChessJmaa
 			piecelist.Add(new Pieces("Black", "pcbknightBlackbg"));
 			piecelist.Add(new Pieces("Black", "pcbqueenBlackbg"));
 			piecelist.Add(new Pieces("Black", "pcbrookBlack"));
+			piecelist.Add(new Pieces("Black", "pcbwizzardBlack"));
+			piecelist.Add(new Pieces("Black", "pcbkingBlack"));
 			piecelist.Add(new Pieces("White", "pcbrookWhitebg"));
 			piecelist.Add(new Pieces("White", "pcbqueenWhite"));
 			piecelist.Add(new Pieces("White", "pcbknightWhite"));
+			piecelist.Add(new Pieces("White", "pcbkingWhite"));;
+			piecelist.Add(new Pieces("White", "pcbwizzardWhite"));
 
 			winlist = new List<string>();
 			winlist.Add("012");
@@ -79,6 +87,8 @@ namespace TickTackChessJmaa
 				pcbknightBlackbg.Show();
 				pcbqueenBlackbg.Show();
 				pcbrookBlack.Show();
+				pcbkingBlack.Show();
+				pcbwizzardBlack.Show();
 
 				pcbBoardOne.BackColor = Color.Green;
 				pcbBoardTwo.BackColor = Color.Green;
@@ -89,6 +99,8 @@ namespace TickTackChessJmaa
 				pcbknightBlackbg.Hide();
 				pcbqueenBlackbg.Hide();
 				pcbrookBlack.Hide();
+				pcbkingBlack.Hide();
+				pcbwizzardBlack.Hide();
 
 				pcbBoardOne.BackColor = Color.Transparent;
 				pcbBoardTwo.BackColor = Color.Transparent;
@@ -103,6 +115,8 @@ namespace TickTackChessJmaa
 				pcbknightWhite.Show();
 				pcbqueenWhite.Show();
 				pcbrookWhitebg.Show();
+				pcbkingWhite.Show();
+				pcbwizzardWhite.Show();
 
 				pcbBoardSeven.BackColor = Color.Green;
 				pcbBoardEight.BackColor = Color.Green;
@@ -113,6 +127,8 @@ namespace TickTackChessJmaa
 				pcbknightWhite.Hide();
 				pcbqueenWhite.Hide();
 				pcbrookWhitebg.Hide();
+				pcbkingWhite.Hide();
+				pcbwizzardWhite.Hide();
 
 				pcbBoardSeven.BackColor = Color.Transparent;
 				pcbBoardEight.BackColor = Color.Transparent;
@@ -186,16 +202,40 @@ namespace TickTackChessJmaa
 		}
 
 
+
+
 		public void updateBoardPieceLocations()
 		{
-			for(int i = 0; i < pieceOptions.Length; i += 2)
 			{
-				foreach(PictureBox pictureBox in gbxBoard.Controls.OfType<PictureBox>())
+				for (int i = 0; i < pieceOptions.Length; i += 2)
 				{
-					if (pictureBox.Tag.ToString() == pieceOptions[i].ToString() + pieceOptions[i + 1].ToString() && pictureBox.Image == null)
+					foreach (PictureBox pictureBox in gbxBoard.Controls.OfType<PictureBox>())
 					{
-						pictureBox.BackColor = Color.Green;
-						
+						if (pictureBox.Tag.ToString() == pieceOptions[i].ToString() + pieceOptions[i + 1].ToString() && pictureBox.Image == null)
+						{
+							Board targetBoard = boardlist.FirstOrDefault(b => b.GetHorizontal().ToString() == pieceOptions[i].ToString() &&
+													  b.GetVertical().ToString() == pieceOptions[i + 1].ToString());
+
+							if (currentPiece.GetName().Contains("wizzard"))
+							{
+								if (targetBoard.GetPiece() != null && targetBoard.GetPiece().GetTeamColor() == currentPiece.GetTeamColor())
+								{
+									pictureBox.BackColor = Color.Green;
+									Console.WriteLine("Green");
+								}
+								else if (pictureBox.Image == null)
+								{
+									pictureBox.BackColor = Color.Green;
+								}
+							}
+
+							if (pictureBox.Image == null)
+							{
+								pictureBox.BackColor = Color.Green;
+							}
+
+
+						}
 					}
 				}
 			}
@@ -222,25 +262,39 @@ namespace TickTackChessJmaa
 			pcbTo = (PictureBox)sender;
 			if (pcbTo.BackColor == Color.Green)
 			{
-				
 				e.Effect = DragDropEffects.Copy;
 				Image getPicture = (Bitmap)e.Data.GetData(DataFormats.Bitmap);
 				pcbTo.Image = getPicture;
+
+				// Get new location (drop target)
 				horizontal = Convert.ToInt32(pcbTo.Tag.ToString().Substring(0, 1));
 				vertical = Convert.ToInt32(pcbTo.Tag.ToString().Substring(1, 1));
 				currentPiece.SetLocation(horizontal, vertical);
 				pcbTo.BackColor = Color.Transparent;
 
+				// Set piece in the new board
 				currentBoard = boardlist.FirstOrDefault(x => x.GetHorizontal() == horizontal && x.GetVertical() == vertical);
-				currentBoard.SetPiece(currentPiece);
+				currentBoard?.SetPiece(currentPiece); // null check just in case
 
+				// Only try to find a previous board if the piece was on the board
+				if (pcbFrom.Tag != null && pcbFrom.Parent != null && pcbFrom.Parent.Name == "gbxBoard")
+				{
+					int prevHor = Convert.ToInt32(pcbFrom.Tag.ToString().Substring(0, 1));
+					int prevVer = Convert.ToInt32(pcbFrom.Tag.ToString().Substring(1, 1));
+					Board previousBoard = boardlist.FirstOrDefault(x => x.GetHorizontal() == prevHor && x.GetVertical() == prevVer);
 
+					if (previousBoard != null)
+					{
+						previousBoard.SetPiece(null); // Clear the piece from the old square
+					}
+				}
+
+				// If dragging from the piece bank
 				if (pcbFrom.Parent is GroupBox groupBox && groupBox.Name == "gbxPieces")
 				{
 					pcbFrom.BackColor = Color.Red;
 					checkRdo();
 				}
-
 				else
 				{
 					pcbFrom.Image = null;
@@ -269,11 +323,14 @@ namespace TickTackChessJmaa
 
 		public void checkRdo()
 		{
-			if(gbxPieces.Controls.OfType<PictureBox>().All(pb => pb.BackColor == Color.Red))
-			{
+			int blackCount = gbxPieces.Controls.OfType<PictureBox>().Count(pb => pb.BackColor == Color.Red && pb.Name.ToLower().Contains("black"));
+
+			int whiteCount = gbxPieces.Controls.OfType<PictureBox>().Count(pb => pb.BackColor == Color.Red && pb.Name.ToLower().Contains("white"));
+
+			if (blackCount >= 3)
 				rdoBlack.Enabled = false;
+			if (whiteCount >= 3)
 				rdoWhite.Enabled = false;
-			}
 		}
 
 		public void ChangeTurns()
@@ -288,7 +345,7 @@ namespace TickTackChessJmaa
 
 				foreach (Pieces item in piecelist)
 				{
-					if (item.GetTeamColor() == "White")
+					if (item.GetTeamColor() == "White" && item.GetCurrentHorizontal() != 0)
 					{
 						Board currentboard = boardlist.FirstOrDefault(x => x.GetHorizontal() == item.GetCurrentHorizontal() && x.GetVertical() == item.GetCurrentVertical());
 						foreach (PictureBox pictureBox in gbxBoard.Controls.OfType<PictureBox>())
@@ -309,7 +366,7 @@ namespace TickTackChessJmaa
 
 				foreach (Pieces item in piecelist)
 				{
-					if (item.GetTeamColor() == "Black")
+					if (item.GetTeamColor() == "Black" && item.GetCurrentHorizontal() != 0)
 					{
 						Board currentboard = boardlist.FirstOrDefault(x => x.GetHorizontal() == item.GetCurrentHorizontal() && x.GetVertical() == item.GetCurrentVertical());
 						foreach (PictureBox pictureBox in gbxBoard.Controls.OfType<PictureBox>())
@@ -390,11 +447,14 @@ namespace TickTackChessJmaa
 
 						if (selectedBoard.GetPiece().GetTeamColor() == "White")
 						{
+							Console.WriteLine($"{boardOne.GetHorizontal()} {boardOne.GetVertical()} {boardTwo.GetHorizontal()} {boardTwo.GetVertical()} {selectedBoard.GetHorizontal()} {selectedBoard.GetVertical()}");
 							lblText.Text = "White Won!";
 							MessageBox.Show("White won!");
 						}
 						else
 						{
+							Console.WriteLine($"{boardOne.GetHorizontal()} {boardOne.GetVertical()} {boardTwo.GetHorizontal()} {boardTwo.GetVertical()} {selectedBoard.GetHorizontal()} {selectedBoard.GetVertical()}");
+
 							lblText.Text = "Black Won!";
 							MessageBox.Show("Black won!");
 						}

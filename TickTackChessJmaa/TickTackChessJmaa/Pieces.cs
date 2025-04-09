@@ -46,22 +46,25 @@ namespace TickTackChessJmaa
 			{
 				
 				case "pcbrookBlack":
-					MoveRook();
-					break;
 				case "pcbrookWhitebg":
 					MoveRook();
 					break;
 				case "pcbknightBlackbg":
-					MoveKnight();
-					break;
 				case "pcbknightWhite":
 					MoveKnight();
 					break;
 				case "pcbqueenBlackbg":
-					MoveQueen();
-					break;
 				case "pcbqueenWhite":
 					MoveQueen();
+					break;
+				case "pcbkingBlack":
+				case "pcbkingWhite":
+					MoveKing();
+					break;
+
+				case "pcbwizzardBlack":
+				case "pcbwizzardWhite":
+					MoveWizzard();
 					break;
 				default: break;
 			}
@@ -116,6 +119,23 @@ namespace TickTackChessJmaa
 			{
 				moveOptions = $"{newHor}{newVer}"; // Valid diagonal move
 			}
+		}
+
+		public void MoveKing()
+		{
+			int temp_hor = Math.Abs(newHor - curHor);
+			int temp_ver = Math.Abs(newVer - curVer);
+
+			if (temp_hor <= 1 && temp_ver <= 1 && (temp_hor != 0 || temp_ver != 0))
+			{
+				moveOptions = $"{newHor}{newVer}";
+			}
+		}
+
+		public void MoveWizzard()
+		{
+			// Wizard can move to any square (occupied or not), but not capture enemy pieces
+			moveOptions = $"{newHor}{newVer}";
 		}
 
 		public int GetCurrentHorizontal()

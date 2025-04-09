@@ -47,6 +47,10 @@
 			this.pcbBoardOne = new System.Windows.Forms.PictureBox();
 			this.pcbknightBlackbg = new System.Windows.Forms.PictureBox();
 			this.gbxPieces = new System.Windows.Forms.GroupBox();
+			this.pcbwizzardBlack = new System.Windows.Forms.PictureBox();
+			this.pcbkingBlack = new System.Windows.Forms.PictureBox();
+			this.pcbwizzardWhite = new System.Windows.Forms.PictureBox();
+			this.pcbkingWhite = new System.Windows.Forms.PictureBox();
 			this.pcbrookBlack = new System.Windows.Forms.PictureBox();
 			this.pcbrookWhitebg = new System.Windows.Forms.PictureBox();
 			this.pcbknightWhite = new System.Windows.Forms.PictureBox();
@@ -66,6 +70,10 @@
 			((System.ComponentModel.ISupportInitialize)(this.pcbBoardOne)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pcbknightBlackbg)).BeginInit();
 			this.gbxPieces.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pcbwizzardBlack)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.pcbkingBlack)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.pcbwizzardWhite)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.pcbkingWhite)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pcbrookBlack)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pcbrookWhitebg)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pcbknightWhite)).BeginInit();
@@ -295,6 +303,10 @@
 			// 
 			// gbxPieces
 			// 
+			this.gbxPieces.Controls.Add(this.pcbwizzardBlack);
+			this.gbxPieces.Controls.Add(this.pcbkingBlack);
+			this.gbxPieces.Controls.Add(this.pcbwizzardWhite);
+			this.gbxPieces.Controls.Add(this.pcbkingWhite);
 			this.gbxPieces.Controls.Add(this.pcbrookBlack);
 			this.gbxPieces.Controls.Add(this.pcbrookWhitebg);
 			this.gbxPieces.Controls.Add(this.pcbknightBlackbg);
@@ -305,10 +317,62 @@
 			this.gbxPieces.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.gbxPieces.Name = "gbxPieces";
 			this.gbxPieces.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-			this.gbxPieces.Size = new System.Drawing.Size(169, 520);
+			this.gbxPieces.Size = new System.Drawing.Size(331, 520);
 			this.gbxPieces.TabIndex = 3;
 			this.gbxPieces.TabStop = false;
 			this.gbxPieces.Text = "Pieces";
+			// 
+			// pcbwizzardBlack
+			// 
+			this.pcbwizzardBlack.Image = ((System.Drawing.Image)(resources.GetObject("pcbwizzardBlack.Image")));
+			this.pcbwizzardBlack.Location = new System.Drawing.Point(153, 192);
+			this.pcbwizzardBlack.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			this.pcbwizzardBlack.Name = "pcbwizzardBlack";
+			this.pcbwizzardBlack.Size = new System.Drawing.Size(141, 156);
+			this.pcbwizzardBlack.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+			this.pcbwizzardBlack.TabIndex = 18;
+			this.pcbwizzardBlack.TabStop = false;
+			this.pcbwizzardBlack.Tag = "5";
+			this.pcbwizzardBlack.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pcbPieces_mouseDown);
+			// 
+			// pcbkingBlack
+			// 
+			this.pcbkingBlack.Image = ((System.Drawing.Image)(resources.GetObject("pcbkingBlack.Image")));
+			this.pcbkingBlack.Location = new System.Drawing.Point(154, 28);
+			this.pcbkingBlack.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			this.pcbkingBlack.Name = "pcbkingBlack";
+			this.pcbkingBlack.Size = new System.Drawing.Size(141, 156);
+			this.pcbkingBlack.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+			this.pcbkingBlack.TabIndex = 17;
+			this.pcbkingBlack.TabStop = false;
+			this.pcbkingBlack.Tag = "4";
+			this.pcbkingBlack.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pcbPieces_mouseDown);
+			// 
+			// pcbwizzardWhite
+			// 
+			this.pcbwizzardWhite.Image = ((System.Drawing.Image)(resources.GetObject("pcbwizzardWhite.Image")));
+			this.pcbwizzardWhite.Location = new System.Drawing.Point(154, 192);
+			this.pcbwizzardWhite.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			this.pcbwizzardWhite.Name = "pcbwizzardWhite";
+			this.pcbwizzardWhite.Size = new System.Drawing.Size(141, 156);
+			this.pcbwizzardWhite.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+			this.pcbwizzardWhite.TabIndex = 16;
+			this.pcbwizzardWhite.TabStop = false;
+			this.pcbwizzardWhite.Tag = "5";
+			this.pcbwizzardWhite.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pcbPieces_mouseDown);
+			// 
+			// pcbkingWhite
+			// 
+			this.pcbkingWhite.Image = ((System.Drawing.Image)(resources.GetObject("pcbkingWhite.Image")));
+			this.pcbkingWhite.Location = new System.Drawing.Point(154, 28);
+			this.pcbkingWhite.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			this.pcbkingWhite.Name = "pcbkingWhite";
+			this.pcbkingWhite.Size = new System.Drawing.Size(141, 156);
+			this.pcbkingWhite.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+			this.pcbkingWhite.TabIndex = 15;
+			this.pcbkingWhite.TabStop = false;
+			this.pcbkingWhite.Tag = "4";
+			this.pcbkingWhite.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pcbPieces_mouseDown);
 			// 
 			// pcbrookBlack
 			// 
@@ -405,7 +469,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(657, 718);
+			this.ClientSize = new System.Drawing.Size(845, 718);
 			this.Controls.Add(this.rdoBlack);
 			this.Controls.Add(this.rdoWhite);
 			this.Controls.Add(this.gbxPieces);
@@ -428,6 +492,10 @@
 			((System.ComponentModel.ISupportInitialize)(this.pcbBoardOne)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.pcbknightBlackbg)).EndInit();
 			this.gbxPieces.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.pcbwizzardBlack)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.pcbkingBlack)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.pcbwizzardWhite)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.pcbkingWhite)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.pcbrookBlack)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.pcbrookWhitebg)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.pcbknightWhite)).EndInit();
@@ -465,6 +533,10 @@
         private System.Windows.Forms.PictureBox pcbrookBlack;
         private System.Windows.Forms.PictureBox pcbqueenBlackbg;
         private System.Windows.Forms.PictureBox pcbknightBlackbg;
-    }
+		private System.Windows.Forms.PictureBox pcbwizzardWhite;
+		private System.Windows.Forms.PictureBox pcbkingWhite;
+		private System.Windows.Forms.PictureBox pcbwizzardBlack;
+		private System.Windows.Forms.PictureBox pcbkingBlack;
+	}
 }
 
